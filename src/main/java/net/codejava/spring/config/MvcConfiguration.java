@@ -2,13 +2,15 @@ package net.codejava.spring.config;
 
 import javax.sql.DataSource;
 
-import net.codejava.spring.dao.ContactDAO;
-import net.codejava.spring.dao.ContactDAOImpl;
+import net.codejava.spring.dao.StudentDAOImpl;
+import net.codejava.spring.dao.StudentDao;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -32,6 +34,13 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
+	
+	@Bean
+	
+	public MultipartResolver multipartResolver()
+	{
+		return new StandardServletMultipartResolver();
+	}
 
 	@Bean
 	public DataSource getDataSource() {
@@ -45,7 +54,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	}
 	
 	@Bean
-	public ContactDAO getContactDAO() {
-		return new ContactDAOImpl(getDataSource());
+	public StudentDao getContactDAO() {
+		return new StudentDAOImpl(getDataSource());
 	}
 }

@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>New/Edit Contact</title>
+<title>New/Edit Student</title>
 </head>
 <body>
 	<div align="center">
-		<h1>New/Edit Contact</h1>
+		<h1>New/Edit Student</h1>
 		<form:form action="saveContact" method="post" modelAttribute="contact">
 		<table>
 			<form:hidden path="id"/>
@@ -19,16 +19,12 @@
 				<td><form:input path="name" /></td>
 			</tr>
 			<tr>
-				<td>Email:</td>
-				<td><form:input path="email" /></td>
+				<td>Age:</td>
+				<td><form:input path="Age" /></td>
 			</tr>
 			<tr>
-				<td>Address:</td>
-				<td><form:input path="address" /></td>
-			</tr>
-			<tr>
-				<td>Telephone:</td>
-				<td><form:input path="telephone" /></td>
+				<td>mark:</td>
+				<td><form:input path="mark" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit" value="Save"></td>

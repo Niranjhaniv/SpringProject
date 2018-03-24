@@ -6,31 +6,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Contact Manager Home</title>
+        <title>Student Manager</title>
     </head>
     <body>
     	<div align="center">
 	        <h1>Contact List</h1>
-	        <h3><a href="newContact">New Contact</a></h3>
+	        <h3><a href="newContact">New Student details</a></h3>
 	        <table border="1">
 	        	<th>No</th>
 	        	<th>Name</th>
-	        	<th>Email</th>
-	        	<th>Address</th>
-	        	<th>Telephone</th>
-	        	<th>Action</th>
+	        	<th>Age</th>
+	        	<th>Mark</th>
 	        	
-				<c:forEach var="contact" items="${listContact}" varStatus="status">
+				<c:forEach var="student" items="${listContact}" varStatus="status">
 	        	<tr>
 	        		<td>${status.index + 1}</td>
-					<td>${contact.name}</td>
-					<td>${contact.email}</td>
-					<td>${contact.address}</td>
-					<td>${contact.telephone}</td>
+					<td>${student.name}</td>
+					<td>${student.age}</td>
+					<td>${student.mark}</td>
 					<td>
-						<a href="editContact?id=${contact.id}">Edit</a>
+						<a href="editContact?id=${student.id}">Edit</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="deleteContact?id=${contact.id}">Delete</a>
+						<a href="deleteContact?id=${student.id}">Delete</a>
 					</td>
 							
 	        	</tr>
