@@ -91,7 +91,7 @@ public class HomeController {
 		try
 		{
 			byte[] bytes=file.getBytes();
-			Path path = Paths.get(FOLDER+file.getOriginalFilename());
+			Path path = Paths.get(file.getOriginalFilename());
 			Files.write(path, bytes);
 			redirectAttributes.addAttribute("message", "Uploaded");
 			insertJson();

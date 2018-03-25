@@ -44,14 +44,11 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
 	@Bean
 	public DataSource getDataSource() {
-		String dbUrl = System.getenv("JDBC_DATABASE_URL");
-        String username = System.getenv("JDBC_DATABASE_USERNAME");
-        String password = System.getenv("JDBC_DATABASE_PASSWORD");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl(dbUrl);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
+		dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-05.cleardb.net:3306/heroku_861d1f0c4fbf659");
+		dataSource.setUsername("bc94d8b88ea246");
+		dataSource.setPassword("f9cfcc4a");
 		
 		return dataSource;
 	}
