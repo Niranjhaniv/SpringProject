@@ -11,6 +11,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import net.codejava.spring.dao.StudentDao;
+import net.codejava.spring.model.Employee;
+import net.codejava.spring.model.Json;
 import net.codejava.spring.model.Student;
 
 import org.json.simple.JSONObject;
@@ -20,6 +22,9 @@ import org.json.simple.parser.ParseException;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+	
 
 /**
  * This controller routes accesses to the application to the appropriate
@@ -37,17 +43,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class HomeController {
 
-	private static String FOLDER="G://temp//" ;
 	@Autowired
 	private  StudentDao studentDao;
 	
-	@RequestMapping(value="/")
-	public ModelAndView listContact(ModelAndView model) throws IOException{
-		List<Student> listContact = studentDao.list();
-		model.addObject("listContact", listContact);
-		model.setViewName("uploadFile");
-		
-		return model;
+	@RequestMapping("/")
+	public ModelAndView initializeForm()
+	{
+		ModelAndView mv = new ModelAndView("uploadFile");
+		mv.addObject("json", new Json());
+		return mv;
 	}
 	
 	@RequestMapping(value = "/newContact", method = RequestMethod.GET)
@@ -57,13 +61,13 @@ public class HomeController {
 		model.setViewName("ContactForm");
 		return model;
 	}
-	
-	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
-	public ModelAndView saveContact(@ModelAttribute Student student) {
-		studentDao.saveOrUpdate(student);		
-		return new ModelAndView("redirect:/");
-	}
-	
+//	
+//	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
+//	public ModelAndView saveContact(@ModelAttribute Student student) {
+//		studentDao.saveOrUpdate(student);		
+//		return new ModelAndView("redirect:/");
+//	}
+//	
 	@RequestMapping(value = "/deleteContact", method = RequestMethod.GET)
 	public ModelAndView deleteContact(HttpServletRequest request) {
 		int studentId = Integer.parseInt(request.getParameter("id"));
@@ -81,8 +85,11 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes) throws JSONException {
+	
+	
+	
+	/*@RequestMapping(value = "/json", method = RequestMethod.POST)
+	public String submitForm(Model model, Json json) throws JSONException {
 		if(file.isEmpty())
 		{
 			redirectAttributes.addAttribute("message", "Please add the file");
@@ -104,9 +111,12 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:uploadStatus";
+
+		model.addAttribute("json", json);
+
+		return "uploadStatus";
 		
-	}
+	}*/
 	
 	@RequestMapping(value = "/uploadStatus", method = RequestMethod.POST)
 	public String uploadStatus()
@@ -114,11 +124,32 @@ public class HomeController {
 		return "uploadStatus";
 	}
 	
-	public  void insertJson() throws JSONException
+	
+	@RequestMapping(value = "/json", method = RequestMethod.GET)
+	public ModelAndView showEmployeeForm() {
+		Json json = new Json();
+
+		ModelAndView mv = new ModelAndView("uploadFile");
+		mv.addObject("json", json);
+
+		return mv;
+	}
+
+	@RequestMapping(value = "/json", method = RequestMethod.POST)
+	public String submitForm(Model model, Json json) throws JSONException {
+
+		
+		 String val=json.getJson();
+		 insertJson(val);
+	    return "uploadStatus";
+
+	}
+	
+	public  void insertJson(String val) throws JSONException
 	{
 		JSONParser parser = new JSONParser();
 		try {
-			JSONArray array=(JSONArray) parser.parse(new FileReader("G:\\temp\\jsonArray.json"));
+			JSONArray array=(JSONArray) parser.parse(val);
 			
 			for(Object o : array)
 			{
@@ -134,13 +165,7 @@ public class HomeController {
 			}
  
 			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
+		}  catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
