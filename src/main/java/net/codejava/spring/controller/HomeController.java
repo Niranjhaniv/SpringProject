@@ -137,10 +137,21 @@ public class HomeController {
 	@RequestMapping(value = "/json", method = RequestMethod.POST)
 	public String submitForm(Model model, Json json) throws JSONException {
 
-		
+		if(json.getJson()!=null )
+		{
 		 String val=json.getJson();
-		 insertJson(val);
-	    return "uploadStatus";
+			 if(val != "")
+			 {
+				 insertJson(val);
+			     return "uploadStatus";
+			 }
+			 else
+			{
+				 return "error";
+			}
+		}
+		
+		 return "error";
 
 	}
 	

@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>JSON Validator</title>
+<title>JSON</title>
 </head>
 <body>
 	<form:form method="post" modelAttribute="json">
