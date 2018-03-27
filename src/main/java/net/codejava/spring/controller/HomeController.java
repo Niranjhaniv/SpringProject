@@ -11,7 +11,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import net.codejava.spring.dao.StudentDao;
-import net.codejava.spring.model.Employee;
 import net.codejava.spring.model.Json;
 import net.codejava.spring.model.Student;
 
@@ -46,28 +45,28 @@ public class HomeController {
 	@Autowired
 	private  StudentDao studentDao;
 	
-	@RequestMapping("/")
-	public ModelAndView initializeForm()
-	{
-		ModelAndView mv = new ModelAndView("uploadFile");
-		mv.addObject("json", new Json());
-		return mv;
+	@RequestMapping(value="/")
+	public ModelAndView listContact(ModelAndView model) throws IOException{
+		List<Student> listContact = studentDao.list();
+		model.addObject("listContact", listContact);
+		model.setViewName("home");
+		
+		return model;
 	}
-	
 	@RequestMapping(value = "/newContact", method = RequestMethod.GET)
 	public ModelAndView newContact(ModelAndView model) {
 		Student newstudent = new Student();
 		model.addObject("contact", newstudent);
-		model.setViewName("ContactForm");
+		model.setViewName("StudentForm");
 		return model;
 	}
-//	
-//	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
-//	public ModelAndView saveContact(@ModelAttribute Student student) {
-//		studentDao.saveOrUpdate(student);		
-//		return new ModelAndView("redirect:/");
-//	}
-//	
+	
+	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
+	public ModelAndView saveContact(@ModelAttribute Student student) {
+		studentDao.saveOrUpdate(student);		
+		return new ModelAndView("redirect:/");
+	}
+	
 	@RequestMapping(value = "/deleteContact", method = RequestMethod.GET)
 	public ModelAndView deleteContact(HttpServletRequest request) {
 		int studentId = Integer.parseInt(request.getParameter("id"));

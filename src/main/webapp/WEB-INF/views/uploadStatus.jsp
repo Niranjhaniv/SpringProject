@@ -5,7 +5,7 @@
 <title>JSON Validator</title>
 </head>
 <body>
-	<h2>Employee Data</h2>
+	<h2>Student Data</h2>
 
 	<table>
 		

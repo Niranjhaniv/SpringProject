@@ -10,7 +10,9 @@
     </head>
     <body>
     	<div align="center">
-	        <h1>Contact List</h1>
+	        <h1>Student List</h1>
+	        <h3>><a href="json">Upload Json</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;</h3>
 	        <h3><a href="newContact">New Student details</a></h3>
 	        <table border="1">
 	        	<th>No</th>
@@ -33,6 +35,8 @@
 	        	</tr>
 				</c:forEach>	        	
 			</table>
+			
     	</div>
+    	
     </body>
 </html>
