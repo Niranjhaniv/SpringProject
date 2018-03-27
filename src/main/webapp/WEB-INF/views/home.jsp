@@ -11,7 +11,7 @@
     <body>
     	<div align="center">
 	        <h1>Student List</h1>
-	        <h3>><a href="json">Upload Json</a>
+	        <h3><a href="json">Upload Json</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;</h3>
 	        <h3><a href="newContact">New Student details</a></h3>
 	        <table border="1">
